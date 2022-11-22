@@ -5,20 +5,19 @@ using UnityEngine;
 
 public class ManzanaSalto : MonoBehaviour
 {
-
-
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            
+            
             collision.gameObject.GetComponent<Jugador>().SaltoBoost();
             StartCoroutine(returne());
             gameObject.SetActive(false);
 
-
-
             Invoke("SpawnManzana", 4f);
-
+            
 
         }
     }

@@ -24,6 +24,10 @@ public class Jugador : MonoBehaviour
     public int vidas = 3;
     private bool vulnerable = true;
 
+    public SpriteRenderer[] piñasSprites;
+    public int piñas = 0;
+    private bool conseguidoPiñas = false;
+
     
     public Vector2 velocidadRebote;
 
@@ -107,20 +111,20 @@ public class Jugador : MonoBehaviour
    
     public void SaltoBoost()
     {
-       
-            fuerzaSalto = fuerzaSalto * 1.75f;
-            sprite.color = new Color32(241, 160, 175, 255);
-            StartCoroutine(saltoNormal());
+            
+        fuerzaSalto = fuerzaSalto * 1.75f;
+        sprite.color = new Color32(241, 160, 175, 255);
+        StartCoroutine(saltoNormal());
              
     }
 
     IEnumerator saltoNormal() // vuelva a la normalidad despues de f segundos
     {  
-            yield return new WaitForSeconds(3f);
-            fuerzaSalto = fuerzaSalto/1.75f;
-            sprite.color = Color.white;
+           
+        yield return new WaitForSeconds(3f);
+        fuerzaSalto = fuerzaSalto/1.75f;
+        sprite.color = Color.white;
 
-     
     }
 
     public void Rebote(Vector2 golpeado)
@@ -146,15 +150,16 @@ public class Jugador : MonoBehaviour
 
             if (--vidas == 0)
             {
-                Destroy(corazones[0].gameObject); // muerto
+                corazones[0].gameObject.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 40); // muerto
             }
             else if (vidas < 2)
             {
-                Destroy(corazones[1].gameObject);
+                corazones[1].gameObject.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 40);
             }
             else if (vidas < 3)
             {
-                Destroy(corazones[2].gameObject);
+                corazones[2].gameObject.GetComponent<SpriteRenderer>().color= new Color32(255, 255, 255, 40);
+                //Destroy(corazones[2].gameObject);
             }
 
             Invoke("HacerVulnerable", 0.4f);
@@ -163,6 +168,28 @@ public class Jugador : MonoBehaviour
     private void HacerVulnerable()
     {
         vulnerable= true;
+        if(fuerzaSalto == 17.5f || fuerzaSalto == -17.5f)
+        {
+            sprite.color = new Color32(241, 160, 175, 255);
+        }
+    }
+
+    public void CogerPiña()
+    {
+        if (++piñas == 3)
+        {
+            piñasSprites[2].color = Color.white; // Ganas
+            conseguidoPiñas = true;
+             
+        }
+        else if (piñas == 2)
+        {
+            piñasSprites[1].color = Color.white;
+        }
+        else if (piñas == 1)
+        {
+            piñasSprites[0].color = Color.white;
+        }
     }
 
 
