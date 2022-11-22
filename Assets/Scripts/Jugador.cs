@@ -25,6 +25,9 @@ public class Jugador : MonoBehaviour
     private bool vulnerable = true;
 
     
+    public Vector2 velocidadRebote;
+
+    
 
     // Start is called before the first frame update
     void Start()
@@ -40,20 +43,23 @@ public class Jugador : MonoBehaviour
         
         
         camaraPrincipal.transform.position = new Vector3(jugador.position.x + 6, camaraPrincipal.transform.position.y, camaraPrincipal.transform.position.z);
-        
-        
-
-        if (jugador.velocity.x > 0.1)
-            sprite.flipX = false;
-        else if (jugador.velocity.x < -0.1)
-            sprite.flipX = true;
 
 
-        float entradaX = Input.GetAxis("Horizontal"); 
-        jugador.velocity = new Vector2(entradaX * velocidad, jugador.velocity.y); 
 
-        if ((Input.GetKeyDown(KeyCode.Space)|| Input.GetKeyDown(KeyCode.UpArrow)) && tocandoEscenario && ((jugador.velocity.y <= 0.2) && (jugador.velocity.y >= -0.2)))
-            Saltar();
+        if (vulnerable)
+        {
+            if (jugador.velocity.x > 0.1)
+                sprite.flipX = false;
+            else if (jugador.velocity.x < -0.1)
+                sprite.flipX = true;
+
+
+            float entradaX = Input.GetAxis("Horizontal");
+            jugador.velocity = new Vector2(entradaX * velocidad, jugador.velocity.y);
+
+            if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) && tocandoEscenario && ((jugador.velocity.y <= 0.2) && (jugador.velocity.y >= -0.2)))
+                Saltar();
+        }
         
         AnimarJugador();
 
@@ -81,6 +87,7 @@ public class Jugador : MonoBehaviour
         animator.SetFloat("velocidady", jugador.velocity.y);
         animator.SetFloat("velocidadx", Math.Abs(jugador.velocity.x));
         animator.SetBool("ensuelo", tocandoEscenario);
+        animator.SetBool("vulnerable", vulnerable);
 
         if(invertido==true)
             animator.SetFloat("velocidady", -jugador.velocity.y);
@@ -116,14 +123,26 @@ public class Jugador : MonoBehaviour
      
     }
 
-    public void QuitarVidas() 
+    public void Rebote(Vector2 golpeado)
+    {
+        if(invertido==false)
+            jugador.velocity = new Vector2(-velocidadRebote.x * golpeado.x, velocidadRebote.y);
+        else
+            jugador.velocity = new Vector2(-velocidadRebote.x * golpeado.x, -velocidadRebote.y);
+    }
+
+    public void QuitarVidas(Vector2 posicionEnemigo) 
     {
 
         if (vulnerable)
         {
             vulnerable= false;
 
+            sprite.color = Color.white;
+
             animator.Play("hit");
+
+            Rebote(posicionEnemigo);
 
             if (--vidas == 0)
             {
@@ -138,7 +157,7 @@ public class Jugador : MonoBehaviour
                 Destroy(corazones[2].gameObject);
             }
 
-            Invoke("HacerVulnerable", 1f);
+            Invoke("HacerVulnerable", 0.4f);
         }
     }
     private void HacerVulnerable()

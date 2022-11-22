@@ -44,7 +44,7 @@ public class EnemigoHorizontal : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<Jugador>().QuitarVidas();
+            collision.gameObject.GetComponent<Jugador>().QuitarVidas(collision.GetContact(0).normal);
             Debug.Log("colisiona");
         }
     }
