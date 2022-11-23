@@ -5,6 +5,7 @@ using UnityEngine;
 public class Bandera : MonoBehaviour
 {
     private Animator animator;
+    public Jugador jugador;
     
 
     private void Start()
@@ -15,12 +16,11 @@ public class Bandera : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-
-            
-            
-            //collision.gameObject.GetComponent<Jugador>().SaltoBoost();
-            animator.Play("triger");
-
+            if (jugador.piñas >= 3)
+            {
+                collision.gameObject.GetComponent<Jugador>().SiguienteNivel();
+                animator.Play("triger");
+            }
 
         }
     }

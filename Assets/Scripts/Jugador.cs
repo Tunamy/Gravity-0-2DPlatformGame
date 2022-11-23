@@ -26,7 +26,7 @@ public class Jugador : MonoBehaviour
 
     public SpriteRenderer[] piñasSprites;
     public int piñas = 0;
-    private bool conseguidoPiñas = false;
+    
 
     
     public Vector2 velocidadRebote;
@@ -151,6 +151,7 @@ public class Jugador : MonoBehaviour
             if (--vidas == 0)
             {
                 corazones[0].gameObject.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 40); // muerto
+                FinJuego();
             }
             else if (vidas < 2)
             {
@@ -179,7 +180,7 @@ public class Jugador : MonoBehaviour
         if (++piñas == 3)
         {
             piñasSprites[2].color = Color.white; // Ganas
-            conseguidoPiñas = true;
+            
              
         }
         else if (piñas == 2)
@@ -191,6 +192,18 @@ public class Jugador : MonoBehaviour
             piñasSprites[0].color = Color.white;
         }
     }
+
+    public void SiguienteNivel()
+    {
+        //transicion.gameObject.SetActive(true);
+        
+        Invoke("CambioEscena", 2);
+    }
+    public void CambioEscena()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); //siguiente nivel
+    }
+
 
 
     public void FinJuego()

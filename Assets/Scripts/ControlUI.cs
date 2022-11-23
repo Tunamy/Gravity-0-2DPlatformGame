@@ -23,6 +23,7 @@ public class ControlUI : MonoBehaviour
     public void Reastart() 
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Time.timeScale = 1;
     }
 
     public void salir()
@@ -33,6 +34,20 @@ public class ControlUI : MonoBehaviour
     public void MenuPrincipal()
     {
         SceneManager.LoadScene(0);
+        Time.timeScale = 1;
     }
-    
+
+    public void Jugar()
+    {
+        SceneManager.LoadScene(2);
+        Time.timeScale = 1;
+    }
+
+    public void Tutorial()
+    {
+        SceneManager.LoadScene(1);
+        Time.timeScale = 1;
+    }
+
 }
+

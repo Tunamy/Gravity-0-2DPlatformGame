@@ -205,6 +205,11 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   vidas: 3
+  "pi\xF1asSprites":
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  "pi\xF1as": 0
   velocidadRebote: {x: 7, y: 7}
 --- !u!95 &1494822834042749518
 Animator:
