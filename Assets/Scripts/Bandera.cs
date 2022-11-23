@@ -5,6 +5,7 @@ using UnityEngine;
 public class Bandera : MonoBehaviour
 {
     private Animator animator;
+    
 
     private void Start()
     {
@@ -15,7 +16,8 @@ public class Bandera : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
 
-
+            
+            
             //collision.gameObject.GetComponent<Jugador>().SaltoBoost();
             animator.Play("triger");
 
