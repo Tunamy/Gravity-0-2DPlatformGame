@@ -125,4 +125,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocidad: 5
-  posicionFinal: {x: 11.65, y: 3.55, z: 0}
+  posicionFinal: {x: 27.52, y: -1.52206, z: 0}

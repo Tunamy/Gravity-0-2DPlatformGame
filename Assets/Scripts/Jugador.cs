@@ -26,19 +26,26 @@ public class Jugador : MonoBehaviour
 
     public SpriteRenderer[] piñasSprites;
     public int piñas = 0;
-    
+
+    public GameObject menuPause;
+    public Animator transicion;
 
     
     public Vector2 velocidadRebote;
 
-    
 
+    private void Awake()
+    {
+        
+    }
     // Start is called before the first frame update
     void Start()
     {
         jugador = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>(); // metemos las animaciones en la variable animator
+
+        transicion.Play("transicion entrada");
     }
 
     
@@ -67,9 +74,13 @@ public class Jugador : MonoBehaviour
         
         AnimarJugador();
 
+        if(invertido)
+            menuPause.transform.localScale = new Vector3(-1.716f, -1.716f, 1);
+        else
+            menuPause.transform.localScale = new Vector3(1.716f, 1.716f, 1);
 
 
-       
+
 
     }
 
@@ -100,11 +111,12 @@ public class Jugador : MonoBehaviour
     public void GravedadInvertida()
     {
         
-        transform.localScale = new Vector3(1, transform.localScale.y *-1, 1);
+        jugador.transform.localScale = new Vector3(1, transform.localScale.y *-1, 1);
         jugador.gravityScale = -jugador.gravityScale;
         fuerzaSalto = -fuerzaSalto;
         invertido = !invertido;
         
+
     }
 
    
@@ -121,7 +133,7 @@ public class Jugador : MonoBehaviour
     IEnumerator saltoNormal() // vuelva a la normalidad despues de f segundos
     {  
            
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         fuerzaSalto = fuerzaSalto/1.75f;
         sprite.color = Color.white;
 
@@ -195,14 +207,17 @@ public class Jugador : MonoBehaviour
 
     public void SiguienteNivel()
     {
-        //transicion.gameObject.SetActive(true);
+        transicion.speed = 1;
+        transicion.Play("transicion nivel");
         
-        Invoke("CambioEscena", 2);
+        Invoke("CambioEscena", 1.3f);
     }
     public void CambioEscena()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); //siguiente nivel
     }
+
+   
 
 
 
