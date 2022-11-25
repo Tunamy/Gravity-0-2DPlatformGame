@@ -5,7 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class ControlUI : MonoBehaviour
 {
-     public GameObject menuPausa;
+    public GameObject transicionG;
+    public Animator transicion;
+    public GameObject menuPausa;
+
+     void Start()
+    {
+        transicionG.SetActive(true);
+    }
     public void MenuPausa() 
     {
         if (menuPausa.activeSelf == false)
@@ -22,8 +29,10 @@ public class ControlUI : MonoBehaviour
 
     public void Reastart() 
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Time.timeScale = 1;
+        transicion.Play("transicion nivel");
+        Invoke("PulsarRestart", 1.1f);
+        
     }
 
     public void salir()
@@ -33,21 +42,48 @@ public class ControlUI : MonoBehaviour
 
     public void MenuPrincipal()
     {
-        SceneManager.LoadScene(0);
         Time.timeScale = 1;
+        transicion.Play("transicion nivel");
+        Invoke("PulsarMainMenu", 1.1f);
     }
 
     public void Jugar()
+    {
+        transicion.Play("transicion nivel");
+        Invoke("PulsarPlayGame", 1.1f);
+    }
+
+    public void Tutorial()
+    {
+
+        transicion.Play("transicion nivel");
+        Invoke("PulsarTutorial", 1.1f);
+    }
+
+  
+    public void PulsarPlayGame()
     {
         SceneManager.LoadScene(2);
         Time.timeScale = 1;
     }
 
-    public void Tutorial()
+    public void PulsarTutorial()
     {
         SceneManager.LoadScene(1);
         Time.timeScale = 1;
     }
+    public void PulsarMainMenu()
+    {
+        SceneManager.LoadScene(0);
+        Time.timeScale = 1;
+    }
+
+    public void PulsarRestart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        
+    }
+
 
 }
 

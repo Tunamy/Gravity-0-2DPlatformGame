@@ -212,6 +212,8 @@ MonoBehaviour:
   "pi\xF1as": 0
   menuPause: {fileID: 0}
   transicion: {fileID: 0}
+  levelCLear: {fileID: 0}
+  LevelCleara: {fileID: 0}
   velocidadRebote: {x: 7, y: 7}
 --- !u!95 &4118806176325375277
 Animator:

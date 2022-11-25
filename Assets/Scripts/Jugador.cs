@@ -30,7 +30,11 @@ public class Jugador : MonoBehaviour
     public GameObject menuPause;
     public Animator transicion;
 
-    
+    public GameObject levelCLear;
+    public Animator LevelCleara;
+
+
+
     public Vector2 velocidadRebote;
 
 
@@ -46,6 +50,8 @@ public class Jugador : MonoBehaviour
         animator = GetComponent<Animator>(); // metemos las animaciones en la variable animator
 
         transicion.Play("transicion entrada");
+
+        levelCLear.SetActive(false);
     }
 
     
@@ -207,8 +213,9 @@ public class Jugador : MonoBehaviour
 
     public void SiguienteNivel()
     {
-        transicion.speed = 1;
+        levelCLear.SetActive(true);
         transicion.Play("transicion nivel");
+        LevelCleara.Play("levelclear");
         
         Invoke("CambioEscena", 1.3f);
     }
