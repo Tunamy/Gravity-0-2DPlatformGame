@@ -126,3 +126,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocidad: 5
   posicionFinal: {x: 27.52, y: -1.52206, z: 0}
+  hit: {fileID: 0}

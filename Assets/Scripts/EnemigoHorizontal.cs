@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class EnemigoHorizontal : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class EnemigoHorizontal : MonoBehaviour
     private Vector3 posicionInicio;
     public Vector3 posicionFinal;
     private bool moviendoAFin;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -44,6 +46,7 @@ public class EnemigoHorizontal : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            
             collision.gameObject.GetComponent<Jugador>().QuitarVidas(collision.GetContact(0).normal);
             Debug.Log("colisiona");
         }

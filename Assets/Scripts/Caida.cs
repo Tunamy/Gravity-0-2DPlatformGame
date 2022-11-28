@@ -19,7 +19,7 @@ public class Caida : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<Jugador>().FinJuego(); // llamando el metodo Fin juego del script jugador
+            collision.gameObject.GetComponent<Jugador>().ReiniciarNivel(); // llamando el metodo Fin juego del script jugador
             Debug.Log("colisiona");
         }
     }

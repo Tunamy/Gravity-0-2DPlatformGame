@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class ControlUI : MonoBehaviour
 {
     public GameObject transicionG;
     public Animator transicion;
     public GameObject menuPausa;
+    public AudioSource pulsar;
 
      void Start()
     {
@@ -15,6 +17,7 @@ public class ControlUI : MonoBehaviour
     }
     public void MenuPausa() 
     {
+        
         if (menuPausa.activeSelf == false)
         {
             menuPausa.SetActive(true);
@@ -29,6 +32,7 @@ public class ControlUI : MonoBehaviour
 
     public void Reastart() 
     {
+        SonidoBoton();
         Time.timeScale = 1;
         transicion.Play("transicion nivel");
         Invoke("PulsarRestart", 1.1f);
@@ -42,6 +46,7 @@ public class ControlUI : MonoBehaviour
 
     public void MenuPrincipal()
     {
+        SonidoBoton();
         Time.timeScale = 1;
         transicion.Play("transicion nivel");
         Invoke("PulsarMainMenu", 1.1f);
@@ -49,13 +54,14 @@ public class ControlUI : MonoBehaviour
 
     public void Jugar()
     {
+        SonidoBoton();
         transicion.Play("transicion nivel");
         Invoke("PulsarPlayGame", 1.1f);
     }
 
     public void Tutorial()
     {
-
+        SonidoBoton();
         transicion.Play("transicion nivel");
         Invoke("PulsarTutorial", 1.1f);
     }
@@ -82,6 +88,11 @@ public class ControlUI : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         
+    }
+
+    public void SonidoBoton()
+    {
+        pulsar.Play();
     }
 
 

@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 
 public class Jugador : MonoBehaviour
@@ -37,6 +38,11 @@ public class Jugador : MonoBehaviour
 
     public Vector2 velocidadRebote;
 
+    public AudioSource salto;
+    public AudioSource hit;
+    public AudioSource muerto;
+    public AudioSource recolectar;
+
 
     private void Awake()
     {
@@ -48,6 +54,7 @@ public class Jugador : MonoBehaviour
         jugador = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>(); // metemos las animaciones en la variable animator
+        
 
         transicion.Play("transicion entrada");
 
@@ -95,6 +102,7 @@ public class Jugador : MonoBehaviour
     {
         jugador.AddForce(Vector2.up * fuerzaSalto, ForceMode2D.Impulse);
         tocandoEscenario = false;
+        salto.Play();
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -129,7 +137,7 @@ public class Jugador : MonoBehaviour
    
     public void SaltoBoost()
     {
-            
+        recolectar.Play();       
         fuerzaSalto = fuerzaSalto * 1.75f;
         sprite.color = new Color32(241, 160, 175, 255);
         StartCoroutine(saltoNormal());
@@ -168,17 +176,20 @@ public class Jugador : MonoBehaviour
 
             if (--vidas == 0)
             {
+
                 corazones[0].gameObject.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 40); // muerto
-                FinJuego();
+                ReiniciarNivel();
             }
-            else if (vidas < 2)
+            else if (vidas == 1)
             {
+                hit.Play();
                 corazones[1].gameObject.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 40);
             }
-            else if (vidas < 3)
+            else if (vidas == 2)
             {
+                hit.Play();
                 corazones[2].gameObject.GetComponent<SpriteRenderer>().color= new Color32(255, 255, 255, 40);
-                //Destroy(corazones[2].gameObject);
+                
             }
 
             Invoke("HacerVulnerable", 0.4f);
@@ -195,6 +206,7 @@ public class Jugador : MonoBehaviour
 
     public void CogerPiña()
     {
+        recolectar.Play();
         if (++piñas == 3)
         {
             piñasSprites[2].color = Color.white; // Ganas
@@ -217,7 +229,7 @@ public class Jugador : MonoBehaviour
         transicion.Play("transicion nivel");
         LevelCleara.Play("levelclear");
         
-        Invoke("CambioEscena", 1.3f);
+        Invoke("CambioEscena", 1.5f);
     }
     public void CambioEscena()
     {
@@ -225,7 +237,15 @@ public class Jugador : MonoBehaviour
     }
 
    
+    public void ReiniciarNivel()
+    {
+        muerto.Play();
+        levelCLear.SetActive(true);
+        transicion.Play("transicion nivel");
 
+        Invoke("FinJuego", 1f);
+
+    }
 
 
     public void FinJuego()
