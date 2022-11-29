@@ -147,7 +147,7 @@ public class Jugador : MonoBehaviour
     IEnumerator saltoNormal() // vuelva a la normalidad despues de f segundos
     {  
            
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.5f);
         fuerzaSalto = fuerzaSalto/1.75f;
         sprite.color = Color.white;
 

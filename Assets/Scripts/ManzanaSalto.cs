@@ -19,7 +19,7 @@ public class ManzanaSalto : MonoBehaviour
            
             gameObject.SetActive(false);
 
-            Invoke("SpawnManzana", 4f);
+            Invoke("SpawnManzana", 2.5f);
             
 
 
