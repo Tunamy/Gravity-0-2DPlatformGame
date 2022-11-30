@@ -15,7 +15,7 @@ public class ManzanaSalto : MonoBehaviour
             
             
             collision.gameObject.GetComponent<Jugador>().SaltoBoost();
-            StartCoroutine(returne());
+           
            
             gameObject.SetActive(false);
 
@@ -27,11 +27,7 @@ public class ManzanaSalto : MonoBehaviour
     }
 
 
-    IEnumerator returne()
-    {
-        yield return new WaitForSeconds(3f);
-        
-    }
+    
 
     void SpawnManzana() 
     {
