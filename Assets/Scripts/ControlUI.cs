@@ -44,6 +44,19 @@ public class ControlUI : MonoBehaviour
         Application.Quit();
     }
 
+    public void Creditos()
+    {
+        SonidoBoton();
+        Time.timeScale = 1;
+        transicion.Play("transicion nivel");
+        Invoke("PulsarCreditos", 1.1f);
+    }
+
+    public void PulsarCreditos()
+    {
+        SceneManager.LoadScene("Creditos");
+        Time.timeScale = 1;
+    }
     public void MenuPrincipal()
     {
         SonidoBoton();
